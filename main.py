@@ -3,20 +3,17 @@ from sympy import isprime
 
 def num_gen(n, prime=True):
     return [p for p in range(2, n) if isprime(p)] if prime else [x for x in range(4, n) if not isprime(x)]
-#liat of prime num are generated  
-#list of numbers starting from 4 to n-1 by including numbers for which isprime(x) returns False
 
 def hash(p1, p2, p3):
     return p1 ^ p2 ^ p3
-#the result of the XOR operation on the three input
 
 def hash_gen(prime_numbers):
     hash_set = {}
     print("16 valid messages:")
-    for _ in range(16): # loop for iterate 16 times to generate 16 sets of random prime
-        p_num1, p_num2, p_num3 = random.sample(prime_numbers, 3) #3 unique random primes are selected
+    for _ in range(16): 
+        p_num1, p_num2, p_num3 = random.sample(prime_numbers, 3) 
         hash_value = hash(p_num1, p_num2, p_num3)
-        hash_set[hash_value] = (p_num1, p_num2, p_num3) #Stores prime numbers in the dictionary
+        hash_set[hash_value] = (p_num1, p_num2, p_num3) 
         print(f"({p_num1} {p_num2} {p_num3}) || {hash_value}")
     return hash_set
 
@@ -30,7 +27,7 @@ def collision(hash_set, composite_numbers):
         composite_hash = hash(c1, c2, c3)
         attempts += 1
 
-        if composite_hash in hash_set: #verifying the computed hash for the composite numbers matches any of the hashes stored
+        if composite_hash in hash_set: 
             collision_found = True
             print(f"Collision found after {attempts} attempts:")
             print(f"({c1} {c2} {c3}) || {composite_hash}")
@@ -39,7 +36,7 @@ def collision(hash_set, composite_numbers):
     input("Press any key to continue...")
 
 def main():
-    n = 256 #limit for prime generation 
+    n = 256 
     prime_numbers = num_gen(n, prime=True)
     composite_numbers = num_gen(n, prime=False)
     hash_set = hash_gen(prime_numbers)
